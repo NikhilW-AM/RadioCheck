@@ -1,0 +1,40 @@
+<div class="container my-5">
+  <div class="row ">
+    <div class="col  text-center">
+      <button class="btn btn-primary remove" (click)="changeType() ">change</button>
+    </div>
+
+  </div>
+  <form [formGroup]="addForm">
+    {{addForm.value | json}}
+    <div class="row" formArrayName="options">
+      <div *ngFor="let option of getOptions()?.controls; let i=index;" [formGroupName]=" i">
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text" *ngIf="isRadio; else checkbox">
+              <input type="radio" id="getOptions.isCorrect{{i}}" style="margin-right: 5px;" formControlName="isCorrect"
+                name="isCorrect" (change)=" onChange(i)" [value]="true">
+              <span class="form-check-label"><label for="getOptions.isCorrect{{i}}">option {{i+1}}</label></span>
+
+            </div>
+
+            <ng-template #checkbox>
+              <div class="input-group-text">
+                <input type="checkbox" id="getOptions.isCorrect{{i}}" name="isCorrect" formControlName="isCorrect">
+                <span class="form-check-label"><label for="getOptions.isCorrect{{i}}">&nbsp; option
+                    {{i+1}}</label></span>
+              </div>
+            </ng-template>
+          </div>
+          <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="1" formControlName="text"
+            name="text"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mx-1 my-3">
+      <button class="btn btn-success remove " (click)="addOption()">add</button>
+    </div>
+
+  </form>
+</div>
